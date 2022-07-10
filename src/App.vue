@@ -4,11 +4,16 @@
     <ExpOneVue></ExpOneVue>
     <ExpTwoVue></ExpTwoVue>
     <ExpThreeVue></ExpThreeVue> -->
-    <StudyOne></StudyOne>
+    <!-- <StudyOne></StudyOne> -->
     <!-- <TheoryDay2Vue></TheoryDay2Vue> -->
     <!-- <StudyTwo></StudyTwo> -->
-    <ExpOneVueUnit2></ExpOneVueUnit2>
-    <ExpTwoVueUnit2></ExpTwoVueUnit2>
+    <!-- <ExpOneVueUnit2></ExpOneVueUnit2>
+    <ExpTwoVueUnit2></ExpTwoVueUnit2> -->
+
+    <!-- Buổi 3 -->
+    <!-- <TheoryOneVue></TheoryOneVue> -->
+    <TodoListVue></TodoListVue>
+    <ExerciseVue></ExerciseVue>
   </div>
 </template>
 
@@ -21,13 +26,18 @@
 // import ExpThreeVue from './components/ExpThree.vue'
 
 //Học nhóm
-import StudyOne from './components/HocNhom/ExpOne.vue'
+// import StudyOne from './components/HocNhom/ExpOne.vue'
 // import StudyTwo from './components/HocNhom/ExpTwo.vue'
 
 //Buổi học 2
 // import TheoryDay2Vue from './components/Buoi2/TheoryDay2.vue'
-import ExpOneVueUnit2 from './components/Buoi2/ExpOne.vue'
-import ExpTwoVueUnit2 from './components/Buoi2/ExpTwo.vue'
+// import ExpOneVueUnit2 from './components/Buoi2/ExpOne.vue'
+// import ExpTwoVueUnit2 from './components/Buoi2/ExpTwo.vue'
+
+//Buổi học 3
+// import TheoryOneVue from './components/Unit3/TheoryOne.vue'
+import TodoListVue from './components/Unit3/TodoList.vue'
+import ExerciseVue from './components/Unit3/ExerciseProduct.vue'
 
 export default {
   name: 'App',
@@ -36,11 +46,14 @@ export default {
     // ExpOneVue,
     // ExpTwoVue,
     // ExpThreeVue,
-    StudyOne,
+    // StudyOne,
     // TheoryDay2Vue
     // StudyTwo
-    ExpOneVueUnit2,
-    ExpTwoVueUnit2
+    // ExpOneVueUnit2,
+    // ExpTwoVueUnit2
+    // TheoryOneVue
+    TodoListVue,
+    ExerciseVue
   }
 }
 </script>
