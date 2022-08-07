@@ -6,9 +6,15 @@ import ProductView from '../views/ProductView.vue'
 Vue.use(VueRouter)
 
 const routes = [{
-        path: '/',
+        path: '/home',
         name: 'home',
         component: ProductView
+    },
+    {
+        path: '/',
+        name: 'product',
+        component: () =>
+            import ('../components/Unit7/BaseLayout.vue'),
     },
     {
         path: '/input',
@@ -45,6 +51,18 @@ const routes = [{
             component: () =>
                 import ('../views/ForgetPassword.vue'),
         }]
+    },
+    {
+        path: '/hello',
+        name: 'hello',
+        component: () =>
+            import ('../components/HelloWorld.vue'),
+    },
+    {
+        path: '/hello2',
+        name: 'hello2',
+        component: () =>
+            import ('../components/HelloWorld2.vue'),
     },
     // {
     //     path: '/about',
