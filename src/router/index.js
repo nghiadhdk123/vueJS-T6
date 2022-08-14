@@ -92,6 +92,12 @@ const routes = [{
     //         },
     //     ]
     // }
+    {
+        path: '/products',
+        name: 'products',
+        component: () =>
+            import ('../views/Unit9/ProductView.vue'),
+    },
 ]
 
 const router = new VueRouter({
