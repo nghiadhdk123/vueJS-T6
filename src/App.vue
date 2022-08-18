@@ -16,7 +16,7 @@
       },
 
       mounted () {
-        alert('Thêm /products để xem bài tập Unit9 ! Xin cảm ơn');
+        // alert('Thêm /products để xem bài tập Unit9 ! Xin cảm ơn');
       },
   }
 </script>
