@@ -120,7 +120,6 @@ export default {
       currentPage: 1,
       file: '',
       url: '',
-      url2: '',
       urlUpdate: '',
       link:'http://vuecourse.zent.edu.vn/storage/',
     };
@@ -143,7 +142,7 @@ export default {
         api
       .getProduct(data)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.tableData = res.data.data.data;
         this.total = res.data.data.total;
       })
@@ -201,6 +200,7 @@ export default {
       let data = new FormData();
       data.append('name',this.dataUpdate.name);
       data.append('price',this.dataUpdate.price);
+      data.append('id',this.dataUpdate.id);
       if(this.file) {
         data.append('image',this.file);
       }

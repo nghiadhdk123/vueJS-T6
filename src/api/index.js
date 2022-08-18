@@ -37,7 +37,7 @@ export default {
     updateProduct(data) {
         return apiAxios({
             method: 'post',
-            url: `/products/${data.id}`,
+            url: `/products/${data.get('id')}`,
             data,
         })
     }
