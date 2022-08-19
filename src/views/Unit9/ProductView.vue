@@ -14,7 +14,7 @@
       </el-table-column>
       <el-table-column align="right">
         <template slot="header">
-          <el-button size="mini" type="primary" @click="dialogFormVisible = true">+ Tạo mới</el-button>
+          <el-button size="mini" type="primary" @click="dialogFormVisible = true,url = 1">+ Tạo mới</el-button>
           <input type="text" class="input-search" v-model="search" @keyup="getList(currentPage=1)" placeholder="Tìm kiếm sản phẩm">
         </template>
         <template slot-scope="scope">
@@ -45,15 +45,11 @@
           <span class="error" v-if="error.price">{{ error.price[0] }}</span>
         </el-form-item>
         <el-form-item label="Ảnh" :label-width="formLabelWidth">
-            <div class="wrapper-image" @click="handleOpenFile" v-if="!url">
-              <input type="file" ref="openFile" @change="handleChangeFile" v-show="false"/>
-              <i class="el-icon-picture"></i>
-            </div>
-            <picture v-else>
-              <img :src="url" class="image" alt="">
-              <span class="close" @click="handleCloseImage">X</span>
-            </picture>
-            <span class="error" v-if="error.image">{{ error.image[0] }}</span>
+          <UploadVue @uploadFile="handleUploadFile"
+                    @closeFile="handleCloseFile"
+                     :data="url">
+          </UploadVue>
+          <span class="error" v-if="error.image">{{ error.image[0] }}</span>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -74,15 +70,11 @@
           <!-- <span class="error" v-if="error.price">{{ error.price[0] }}</span> -->
         </el-form-item>
         <el-form-item label="Ảnh" :label-width="formLabelWidth">
-            <div class="wrapper-image" @click="handleOpenUpdateFile" v-if="!urlUpdate && !url">
-               <input type="file" ref="openUpdateFile" @change="handleChangeFile" v-show="false"/>
-              <i class="el-icon-picture"></i>
-            </div>
-            <picture v-else>
-              <img :src="url" class="image" alt="" v-if="url"/>
-              <img :src="link+urlUpdate" class="image" alt="" v-else>
-              <span class="close" @click="handleCloseImage">X</span>
-            </picture>
+            <UploadVue :urlUpdate="urlUpdate" 
+                        :link="link"  
+                        @closeFile="handleCloseFile"
+                        @uploadFile="handleUploadFile">
+            </UploadVue>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -98,7 +90,11 @@ import api from "../../api";
 import moment from "moment";
 // import helper from '../../helper/index.js';
 import {formatMoney} from "../../helper/formatMoney.js";
+import UploadVue from "@/components/Unit10/Upload.vue";
 export default {
+  components: {
+    UploadVue,
+  },
   data() {
     return {
       tableData: [],
@@ -119,7 +115,7 @@ export default {
       total: 1,
       currentPage: 1,
       file: '',
-      url: '',
+      url:1,
       urlUpdate: '',
       link:'http://vuecourse.zent.edu.vn/storage/',
     };
@@ -169,6 +165,8 @@ export default {
             this.dialogFormVisible = false;
             this.form.name = '';
             this.form.price = '';
+            this.file = '';
+            this.url = 0;
             this.open2("Tạo mới thành công !");
         }).catch((err) => {
             console.log(err);
@@ -209,6 +207,7 @@ export default {
             this.open2("Cập nhật thành công !");
             this.getList();
             this.dialogFormUpdateVisible = false;
+            this.file = '';
         }).catch((err) => {
             console.log(err);
         })
@@ -219,39 +218,27 @@ export default {
         this.getList();
     },
 
-    handleOpenFile() {
-      this.$refs.openFile.click();
+    handleUploadFile(data) {
+      // console.log(data);
+      this.file = data;
     },
 
-    handleOpenUpdateFile() {
-       this.$refs.openUpdateFile.click();
-    },
-
-    handleChangeFile(event) {
-      let file = URL.createObjectURL(event.target.files[0]);
-      this.url = file;
-      this.file = event.target.files[0];
-    },
-
-
-    handleCloseImage() {
+    handleCloseFile() {
       this.file = '';
-      this.url = '';
       this.urlUpdate = '';
     },
 
     closeModal() {
       this.dialogFormVisible = false;
       this.file = '';
-      this.url = '';
       this.form.name = '';
       this.form.price = '';
+      this.url = 0;
     },
 
     closeModalUpdate() {
       this.dialogFormUpdateVisible = false;
       this.file = '';
-      this.url = '';
     },
     // helper,
     formatMoney,
@@ -282,61 +269,6 @@ export default {
     border: 0.5px solid #80808052;
   }
 
-  .wrapper-image{
-    height: 300px;
-    border: 1px dotted;
-    text-align: center;
-    line-height: 300px;
-    cursor: pointer;
-  }
-
-  .image{
-    width:100%;
-    height:100%;
-    position: absolute;
-    z-index: 3;
-  }
-
-  picture{
-    position: relative;
-    z-index: 0;
-    width: 100%;
-    height: 300px;
-    display: block;
-    cursor: pointer;
-  }
-
-  picture::before{
-    content:'';
-    display: none;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top:0;
-    left:0;
-    background: #00000054;
-    z-index: 4;
-    cursor: pointer;
-  }
-
-  .close{
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: gray;
-    z-index: 5;
-    color: white;
-    width: 30px;
-    height: 30px;
-    text-align: center;
-    line-height: 30px;
-    cursor: pointer;
-  }
-
-  picture:hover::before,
-  picture:hover .close{
-    display: block;
-  }
+  
 }
 </style>
